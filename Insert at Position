@@ -1,0 +1,52 @@
+class Node{
+    public:
+    int data;
+    Node*next;
+    // constructor
+    Node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+void Atposition(Node*&head,int position,int d){
+    Node*temp=head;
+    int cnt=1;
+    while(cnt<position-1){
+        temp=temp->next;
+        cnt++;
+    }
+    Node*Nodetoinsert=new Node(d);
+    Nodetoinsert->next=temp->next;
+    temp->next=Nodetoinsert;
+    
+}
+void Head(Node*&head,int d){
+    Node*temp=new Node(d);
+    temp->next=head;
+    head=temp;
+}
+void Tail(Node*&tail,int d){
+    Node* temp=new Node(d);
+    tail->next=temp;
+    tail=temp;
+}
+void print(Node*&head){
+    Node*temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+
+int main() {
+    Node*n1=new Node(10);
+    Node*head=n1;
+    Node*tail=n1;
+     
+     Head(head,12);
+     Tail(tail,11);
+    Atposition(head,3,22);       // output->12,10,22,11
+    print(head);
+
+    return 0;
+}
