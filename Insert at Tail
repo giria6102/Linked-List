@@ -1,0 +1,38 @@
+
+class Node{
+    public:
+    int data;
+    Node*next;
+    // constructor
+    Node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+void Tail(Node*&tail,int d){
+    Node* temp=new Node(d);
+    tail->next=temp;
+    tail=temp;
+}
+void print(Node*&tail){
+    Node*temp=tail;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+
+int main() {
+    Node*n1=new Node(10);
+    
+    Node*tail=n1;
+    Tail(tail,12);
+    print(tail);
+     Tail(tail,13);
+    print(tail);
+     Tail(tail,14);
+    print(tail);        // output->12 ,13 ,14
+    
+
+    return 0;
+}
