@@ -1,0 +1,37 @@
+Recusrsive Approach-T(c)-O(N),S(c)-O(N)
+LinkedListNode<int> *reverse(LinkedListNode<int> *head)
+
+{
+    if(head ==NULL|| head->next == NULL)
+
+    {
+        return head;
+    }
+
+    LinkedListNode<int> * ChotaHead = reverse(head->next);
+    head->next->next=head
+    head->next = NULL;
+    return ChotaHead;
+} 
+LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head) 
+{
+    
+    return reverse(head);
+}
+
+
+  Approch 1 ->iterative-T(c)-O(N),S(c)-O(N)
+LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head) 
+{
+    
+    LinkedListNode<int>*curr=head;
+    LinkedListNode<int>*prev=NULL;
+   LinkedListNode<int>*forward=NULL;
+        while(curr!=NULL){
+            forward=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forward;
+        }
+        return prev;
+}
