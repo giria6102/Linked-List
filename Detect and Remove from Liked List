@@ -1,0 +1,54 @@
+Node*detectfloyd(Node*head){   // detects cycle id pesent or not
+    if(head==NULL){
+        return NULL;
+    }
+    Node*slow=head;
+    Node*fast=head;
+    while(fast!=NULL){
+        fast=fast->next;
+        if(fast!=NULL){
+             fast=fast->next;
+        }
+        slow=slow->next;
+        if (slow == fast) {
+            return slow;
+        }
+    }
+    return NULL;
+}
+
+
+Node*headofcycle(Node*head)    // gives head of stating of the loop
+{     
+    if(head==NULL){
+        return NULL;
+    }
+    
+    Node*intersection=detectfloyd(head);
+    Node*slow=head;
+    if(intersection==NULL){
+        return NULL;
+    }
+    while(slow!=intersection){
+        slow=slow->next;
+        intersection=intersection->next;
+    }
+    return slow;
+}
+
+Node *removeLoop(Node *head)     // Removes cycle 
+{     
+    
+     Node*startofloop=headofcycle(head);
+     Node*temp=startofloop;
+     if(startofloop==NULL){
+         return head;
+     }
+     while(temp->next!=startofloop){
+         temp=temp->next;
+     }
+     temp->next=NULL;
+     return head;
+     
+    
+}
