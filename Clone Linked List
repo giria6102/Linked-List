@@ -48,6 +48,85 @@ void insertAtail(Node*&head,Node*&tail,int d){
           }
           
           return clonehead;
-          
-          
+}
+
+Appraoch-2 ,T(c)=O(N),S(c)=O(1)
+
+void insertAtail(Node*&head,Node*&tail,int d){
+        Node*newnode=new Node(d);
+        if(head==NULL){
+            head=newnode;
+            tail=newnode;
+            return;
+        }
+        else{
+            tail->next=newnode;
+            tail=newnode;
+        }
     }
+    Node *copyList(Node *head)
+    {
+         //create clone list
+          Node*clonehead=NULL;
+          Node*clonetail=NULL;
+          
+          Node*temp=head;
+          while(temp!=NULL){
+              insertAtail(clonehead,clonetail,temp->data);
+              temp=temp->next;
+          }
+          
+          //adding clone list in between original list
+          
+          Node*originalnode=head;
+          Node*clonenode=clonehead;
+          
+          while(originalnode!=NULL&&clonenode!=NULL){
+              Node*next=originalnode->next;
+              originalnode->next=clonenode;
+              originalnode=next;
+              
+              //similarly
+              next=clonenode->next;
+              clonenode->next=originalnode;
+              clonenode=next;
+              
+          }
+          
+          //set random pointers
+            temp=head;
+          
+          while(temp!=NULL){
+              if(temp->next!=NULL){
+                if(temp->arb!=NULL){
+                    temp->next->arb=temp->arb->next;
+                }
+                else{
+                    temp->next->arb=temp->arb;
+                }
+              }
+              temp=temp->next->next;
+          }
+          
+          //revert changes 
+          originalnode=head;
+          clonenode=clonehead;
+          while(originalnode!=NULL&&clonenode!=NULL){
+              originalnode->next=clonenode->next;
+              originalnode=originalnode->next;
+              
+              if(originalnode!=NULL){
+              clonenode->next=originalnode->next;
+              }
+              clonenode=clonenode->next;
+          }
+          
+          return clonehead;
+    }
+
+
+
+
+
+
+
