@@ -1,0 +1,83 @@
+Approach-1 T(c)=O(N*K)*(log(N*K)),S(c)=O(N*K) (Brut Force)
+
+Node* flattenLinkedList(Node* head) 
+{
+	vector<int>ans;
+    while(head!=NULL){
+        ans.push_back(head->data);
+        Node*temp=head;
+        while(temp->child!=NULL){
+            ans.push_back(temp->child->data);
+            temp=temp->child;
+        }
+        head=head->next;
+    }
+    sort(ans.begin(),ans.end());
+    Node*root=NULL;
+    Node*tail=NULL;
+    for (int i = 0; i < ans.size(); i++) {
+        Node *newnode = new Node(ans[i]);
+        if(root==NULL){
+            root=newnode;
+            tail=newnode;
+            
+        }
+        else{
+            tail->child=newnode;
+        
+        }
+        tail=newnode;
+    }
+    return root;
+}
+Approach-2 , T(c)=O(N*N*K),S(c)=O(N*K) using resursion and merge sort
+
+Node*merge(Node*left,Node*right){
+  if (left == NULL) {
+    return right;
+  }
+  if (right == NULL){
+      return left;
+  }
+  Node*ans=new Node(-1);
+  Node*temp=ans;
+   
+    while(left!=NULL&&right!=NULL){
+        if(left->data<right->data){
+            temp->child=left;
+            temp=left;
+            left=left->child;
+            
+        }
+        else{
+            temp->child=right;
+            temp=right;
+            right=right->child;
+        }
+    }
+    while(left!=NULL){
+            temp->child=left;
+            temp=left;
+            left=left->child;   
+    }
+    while(right!=NULL){
+        temp->child=right;
+            temp=right;
+            right=right->child;
+    }
+    ans=ans->child;
+    return ans;
+}
+Node *flattenLinkedList(Node *head) {
+    //base case
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+	Node*down=head;
+    Node*right=flattenLinkedList(head->next);
+    down->next=NULL;
+    Node*result=merge(down,right);
+    return result;
+    
+}
+
